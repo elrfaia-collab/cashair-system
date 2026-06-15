@@ -9,6 +9,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Install Visual Studio components
+        run: |
+          choco install visualstudio2022buildtools --package-parameters "--add Microsoft.VisualStudio.Workload.VCTools" -y
+
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.19.0'
@@ -41,4 +45,4 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: cashier-app-windows
-          path:
+          path: build/windows/x64/runner/Release/
