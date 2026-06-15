@@ -5,16 +5,14 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: windows-2019
     steps:
       - uses: actions/checkout@v3
-
-      - name: Setup Visual Studio
-        uses: microsoft/setup-msbuild@v1.1
 
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.19.0'
+          channel: 'stable'
 
       - name: Enable Windows desktop
         run: flutter config --enable-windows-desktop
@@ -24,13 +22,13 @@ jobs:
 
       - name: Create asset folders
         run: |
-          mkdir -Force assets/fonts
-          mkdir -Force assets/images
+          New-Item -ItemType Directory -Force -Path assets/fonts
+          New-Item -ItemType Directory -Force -Path assets/images
 
       - name: Download Cairo Font
         run: |
-          curl -L "https://fonts.gstatic.com/s/cairo/v28/SLXgc1nY6HkvangtZmpQdkhzfH5lkSs2SgRjCAGMQ1z0hOA-W1ToLQ-HmkT0.ttf" -o assets/fonts/Cairo-Regular.ttf
-          curl -L "https://fonts.gstatic.com/s/cairo/v28/SLXgc1nY6HkvangtZmpQdkhzfH5lkSs2SgRjCAGMQ1z0hD4-W1ToLQ-HmkT0.ttf" -o assets/fonts/Cairo-Bold.ttf
+          Invoke-WebRequest -Uri "https://fonts.gstatic.com/s/cairo/v28/SLXgc1nY6HkvangtZmpQdkhzfH5lkSs2SgRjCAGMQ1z0hOA-W1ToLQ-HmkT0.ttf" -OutFile "assets/fonts/Cairo-Regular.ttf"
+          Invoke-WebRequest -Uri "https://fonts.gstatic.com/s/cairo/v28/SLXgc1nY6HkvangtZmpQdkhzfH5lkSs2SgRjCAGMQ1z0hD4-W1ToLQ-HmkT0.ttf" -OutFile "assets/fonts/Cairo-Bold.ttf"
 
       - run: flutter pub get
 
