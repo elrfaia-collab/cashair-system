@@ -17,7 +17,7 @@ jobs:
         run: flutter config --enable-windows-desktop
 
       - name: Create Flutter project
-        run: flutter create --platforms=windows .
+        run: flutter create --platforms=windows --project-name cashair_system . 
 
       - name: Create asset folders
         run: |
