@@ -19,20 +19,4 @@ jobs:
         run: flutter config --enable-windows-desktop
 
       - name: Create Flutter project
-        run: flutter create --platforms=windows --project-name cashair_system .
-
-      - name: Create asset folders
-        run: |
-          New-Item -ItemType Directory -Force -Path assets/fonts
-          New-Item -ItemType Directory -Force -Path assets/images
-
-      - name: Download Cairo Font
-        run: |
-          Invoke-WebRequest -Uri "https://fonts.gstatic.com/s/cairo/v28/SLXgc1nY6HkvangtZmpQdkhzfH5lkSs2SgRjCAGMQ1z0hOA-W1ToLQ-HmkT0.ttf" -OutFile "assets/fonts/Cairo-Regular.ttf"
-          Invoke-WebRequest -Uri "https://fonts.gstatic.com/s/cairo/v28/SLXgc1nY6HkvangtZmpQdkhzfH5lkSs2SgRjCAGMQ1z0hD4-W1ToLQ-HmkT0.ttf" -OutFile "assets/fonts/Cairo-Bold.ttf"
-
-      - run: flutter pub get
-
-      - run: flutter build windows --release
-
-      - uses: actions/upload-artifact@v4
+        run:
