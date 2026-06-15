@@ -18,5 +18,27 @@ jobs:
       - name: Enable Windows desktop
         run: flutter config --enable-windows-desktop
 
-      - name: Create Flutter project
-        run:
+      - name: Create windows folder
+        run: flutter create --platforms=windows --project-name cashair_system temp_project
+
+      - name: Copy windows folder
+        run: Copy-Item -Recurse -Force temp_project/windows ./windows
+
+      - name: Create asset folders
+        run: |
+          New-Item -ItemType Directory -Force -Path assets/fonts
+          New-Item -ItemType Directory -Force -Path assets/images
+
+      - name: Download Cairo Font
+        run: |
+          Invoke-WebRequest -Uri "https://github.com/google/fonts/raw/main/ofl/cairo/Cairo%5Bslnt%2Cwght%5D.ttf" -OutFile "assets/fonts/Cairo-Regular.ttf"
+          Copy-Item "assets/fonts/Cairo-Regular.ttf" "assets/fonts/Cairo-Bold.ttf"
+
+      - run: flutter pub get
+
+      - run: flutter build windows --release
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cashier-app-windows
+          path:
