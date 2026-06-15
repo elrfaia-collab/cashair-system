@@ -9,6 +9,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Setup Visual Studio
+        uses: microsoft/setup-msbuild@v1.1
+
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.19.0'
@@ -17,7 +20,7 @@ jobs:
         run: flutter config --enable-windows-desktop
 
       - name: Create Flutter project
-        run: flutter create --platforms=windows --project-name cashair_system . 
+        run: flutter create --platforms=windows --project-name cashair_system .
 
       - name: Create asset folders
         run: |
