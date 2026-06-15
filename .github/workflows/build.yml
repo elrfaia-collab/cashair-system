@@ -9,10 +9,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install Visual Studio components
-        run: |
-          choco install visualstudio2022buildtools --package-parameters "--add Microsoft.VisualStudio.Workload.VCTools" -y
-
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.19.0'
@@ -33,10 +29,10 @@ jobs:
           New-Item -ItemType Directory -Force -Path assets/fonts
           New-Item -ItemType Directory -Force -Path assets/images
 
-      - name: Download Cairo Font
+      - name: Create dummy fonts
         run: |
-          Invoke-WebRequest -Uri "https://github.com/google/fonts/raw/main/ofl/cairo/Cairo%5Bslnt%2Cwght%5D.ttf" -OutFile "assets/fonts/Cairo-Regular.ttf"
-          Copy-Item "assets/fonts/Cairo-Regular.ttf" "assets/fonts/Cairo-Bold.ttf"
+          [System.IO.File]::WriteAllBytes("assets/fonts/Cairo-Regular.ttf", [byte[]]@())
+          [System.IO.File]::WriteAllBytes("assets/fonts/Cairo-Bold.ttf", [byte[]]@())
 
       - run: flutter pub get
 
