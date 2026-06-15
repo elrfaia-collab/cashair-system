@@ -13,10 +13,16 @@ jobs:
         with:
           flutter-version: '3.19.0'
 
+      - name: Enable Windows desktop
+        run: flutter config --enable-windows-desktop
+
+      - name: Create Flutter project
+        run: flutter create --platforms=windows .
+
       - name: Create asset folders
         run: |
-          mkdir -p assets/fonts
-          mkdir -p assets/images
+          mkdir -Force assets/fonts
+          mkdir -Force assets/images
 
       - name: Download Cairo Font
         run: |
