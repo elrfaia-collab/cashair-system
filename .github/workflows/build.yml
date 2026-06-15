@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-2019
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
 
@@ -13,6 +13,7 @@ jobs:
         with:
           flutter-version: '3.19.0'
           channel: 'stable'
+          cache: true
 
       - name: Enable Windows desktop
         run: flutter config --enable-windows-desktop
@@ -35,6 +36,3 @@ jobs:
       - run: flutter build windows --release
 
       - uses: actions/upload-artifact@v4
-        with:
-          name: cashier-app-windows
-          path: build/windows/x64/runner/Release/
